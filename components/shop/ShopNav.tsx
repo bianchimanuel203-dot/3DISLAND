@@ -80,6 +80,7 @@ type ShopNavProps = {
   categoryCounts: Record<ShopCategoryId, number>;
   search?: string;
   onSearchChange?: (v: string) => void;
+  cartCount?: number;
 };
 
 function SearchSuggestions({ query, onSelect }: { query: string; onSelect: (id: string) => void }) {

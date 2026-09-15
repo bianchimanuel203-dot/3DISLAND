@@ -1,4 +1,5 @@
 import NextAuth from "next-auth"
+import { getServerSession } from "next-auth/next"
 import GoogleProvider from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { PrismaAdapter } from "@auth/prisma-adapter"
@@ -71,7 +72,5 @@ export default NextAuth(authOptions)
 
 // Helper para usar en server components
 export async function auth() {
-  // Para NextAuth v4, esta función se implementa diferente
-  // Por ahora devuelve null, la implementaremos cuando sea necesaria
-  return null
+  return getServerSession(authOptions)
 }

@@ -70,7 +70,7 @@ export default function ProductPage() {
 
   function handleAddToCart() {
     for (let i = 0; i < qty; i++) {
-      addToCart({ id: product!.id, name: product!.name, price: product!.price, glyph: product!.glyph });
+      addToCart(product!);
     }
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
@@ -120,7 +120,7 @@ export default function ProductPage() {
                   </span>
                 )}
                 <button
-                  onClick={() => toggleFavorite(product.id)}
+                  onClick={() => toggleFavorite(product)}
                   className="absolute top-4 right-4 rounded-full bg-white p-2.5 shadow-md transition hover:scale-110 border border-gray-100"
                   aria-label={fav ? "Quitar de favoritos" : "Añadir a favoritos"}
                 >
