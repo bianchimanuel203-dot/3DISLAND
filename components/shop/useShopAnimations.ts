@@ -21,7 +21,8 @@ export function useShopAnimations(
       const mm = gsap.matchMedia();
 
       mm.add("(prefers-reduced-motion: reduce)", () => {
-        gsap.set([hero, grid, cards], { opacity: 1, y: 0, scale: 1 });
+        const targets = [hero, grid, ...Array.from(cards)].filter(Boolean);
+        if (targets.length) gsap.set(targets, { opacity: 1, y: 0, scale: 1 });
       });
 
       mm.add("(min-width: 0px)", () => {

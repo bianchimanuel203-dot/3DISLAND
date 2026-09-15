@@ -7,6 +7,7 @@ import { useFavoritesStore } from "@/store/favorites.store";
 import ShopNav from "@/components/shop/ShopNav";
 import Link from "next/link";
 import { useState } from "react";
+import UnsplashPhoto from "@/components/ui/UnsplashPhoto";
 
 const categoryCounts: Record<ShopCategoryId, number> = {
   all: SHOP_PRODUCTS.length,
@@ -110,10 +111,17 @@ export default function ProductPage() {
                   </button>
                 ))}
               </div>
-              <div className="relative flex flex-1 items-center justify-center rounded-2xl bg-white shadow-sm min-h-[420px] border border-gray-100">
-                <span className="text-[12rem] select-none" role="img" aria-label={product.name}>
-                  {product.glyph}
-                </span>
+              <div className="relative flex flex-1 items-center justify-center overflow-hidden rounded-2xl bg-white shadow-sm min-h-[420px] border border-gray-100">
+                <UnsplashPhoto
+                  section="product"
+                  alt={product.name}
+                  className="h-full w-full object-cover"
+                  fallback={
+                    <span className="text-[12rem] select-none" role="img" aria-label={product.name}>
+                      {product.glyph}
+                    </span>
+                  }
+                />
                 {product.tag && (
                   <span className="absolute top-4 left-4 rounded-full bg-gray-900 px-3 py-1 text-xs font-bold text-white uppercase tracking-wide">
                     {product.tag}
@@ -236,8 +244,13 @@ export default function ProductPage() {
                   {related.map((p) => (
                     <Link key={p.id} href={`/shop/product/${p.id}`}
                       className="group flex flex-col gap-2 rounded-2xl border border-gray-100 bg-white p-4 transition hover:border-gray-300 hover:shadow-md">
-                      <div className="flex h-24 items-center justify-center rounded-xl bg-gray-50 text-5xl">
-                        {p.glyph}
+                      <div className="flex h-24 items-center justify-center overflow-hidden rounded-xl bg-gray-50">
+                        <UnsplashPhoto
+                          section="product"
+                          alt={p.name}
+                          className="h-full w-full object-cover"
+                          fallback={<span className="text-5xl">{p.glyph}</span>}
+                        />
                       </div>
                       <p className="text-xs font-semibold text-gray-800 group-hover:text-gray-600 leading-tight line-clamp-2">
                         {p.name}

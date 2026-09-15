@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { type ShopProduct, formatPrice } from "@/lib/shop/products";
+import UnsplashPhoto from "@/components/ui/UnsplashPhoto";
 
 type ProductGridProps = {
   products: ShopProduct[];
@@ -65,12 +66,18 @@ export default function ProductGrid({ products, onAddToCart }: ProductGridProps)
             <Link href={`/shop/product/${product.id}`}
               className="relative block overflow-hidden bg-gray-50"
               style={{ aspectRatio: "1 / 1" }}>
-              <div className="flex items-center justify-center w-full h-full p-4">
-                <span className="select-none transition-transform duration-300 group-hover:scale-110"
-                  style={{ fontSize: "5rem", lineHeight: 1 }}>
-                  {product.glyph ?? "📦"}
-                </span>
-              </div>
+              <UnsplashPhoto
+                section="product"
+                alt={product.name}
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                fallback={
+                  <div className="flex items-center justify-center w-full h-full p-4">
+                    <span className="select-none" style={{ fontSize: "5rem", lineHeight: 1 }}>
+                      {product.glyph ?? "📦"}
+                    </span>
+                  </div>
+                }
+              />
 
               {/* Badge descuento */}
               <span className="absolute top-2 left-2 bg-red-500 text-white text-[0.6rem] font-bold px-1.5 py-0.5 rounded-full">

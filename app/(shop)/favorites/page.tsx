@@ -8,6 +8,7 @@ import ShopNav from "@/components/shop/ShopNav";
 import ShopFooter from "@/components/shop/ShopFooter";
 import { useState, useMemo } from "react";
 import { useHydration } from "@/store/useHydration";
+import UnsplashPhoto from "@/components/ui/UnsplashPhoto";
 
 export default function FavoritesPage() {
   const { items, removeFavorite } = useFavoritesStore();
@@ -77,10 +78,13 @@ export default function FavoritesPage() {
               return (
                 <div key={product.id}
                   className="group flex flex-col bg-white rounded-2xl overflow-hidden hover:shadow-md transition border border-gray-100 hover:border-gray-200">
-                  <div className="relative flex items-center justify-center bg-gray-50 h-40">
-                    <span className="text-6xl select-none group-hover:scale-105 transition duration-200">
-                      {product.glyph}
-                    </span>
+                  <div className="relative flex items-center justify-center bg-gray-50 h-40 overflow-hidden">
+                    <UnsplashPhoto
+                      section="product"
+                      alt={product.name}
+                      className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
+                      fallback={<span className="text-6xl select-none">{product.glyph}</span>}
+                    />
                     <span className="absolute top-2 left-2 bg-red-500 text-white text-[0.6rem] font-bold px-1.5 py-0.5 rounded-full">
                       -{discount}%
                     </span>

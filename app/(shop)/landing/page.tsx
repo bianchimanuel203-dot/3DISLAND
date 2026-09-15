@@ -11,6 +11,7 @@ import RetroGrid from "@/components/ui/retro-grid";
 import { ZoomParallax } from "@/components/ui/zoom-parallax";
 import { GlowCard } from "@/components/ui/spotlight-card";
 import ButtonColorful from "@/components/ui/button-colorful";
+import UnsplashPhoto from "@/components/ui/UnsplashPhoto";
 import Link from "next/link";
 
 const FEATURED = SHOP_PRODUCTS.slice(0, 6);
@@ -172,11 +173,13 @@ function QuickViewModal({ product, onClose, onAdd }: { product: Product; onClose
         <button type="button" onClick={onClose}
           className="absolute top-4 right-4 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition">✕</button>
         <div className="flex flex-col md:flex-row">
-          <div className="relative flex items-center justify-center bg-gradient-to-b from-[#1a1a2e] to-[#0d0d1a] h-64 md:h-auto md:w-64 shrink-0">
-            <motion.span className="text-8xl select-none"
-              animate={{ rotate: [0, 5, -5, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>
-              {product.glyph}
-            </motion.span>
+          <div className="relative flex items-center justify-center overflow-hidden bg-gradient-to-b from-[#1a1a2e] to-[#0d0d1a] h-64 md:h-auto md:w-64 shrink-0">
+            <UnsplashPhoto
+              section="product"
+              alt={product.name}
+              className="h-full w-full object-cover"
+              fallback={<span className="text-8xl select-none">{product.glyph}</span>}
+            />
             <span className="absolute top-3 left-3 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">-{discount}%</span>
             {product.tag && <span className="absolute top-3 right-3 text-white text-xs font-bold px-2 py-1 rounded"
               style={{ background: "linear-gradient(135deg, #06b6d4, #9B7DD4)" }}>{product.tag}</span>}
@@ -418,8 +421,17 @@ function TrustBar() {
 
 function CategoriesSection() {
   return (
-    <section className="bg-[#0d0d0d] py-24 px-6">
-      <div className="mx-auto max-w-7xl">
+    <section className="relative overflow-hidden bg-[#0d0d0d] py-24 px-6">
+      <div className="absolute inset-0 z-0">
+        <UnsplashPhoto
+          section="fuerteventura"
+          alt="Fuerteventura, Islas Canarias"
+          className="h-full w-full object-cover opacity-40"
+        />
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0d0d0d] via-transparent to-[#0d0d0d]" />
+      </div>
+      <div className="relative z-10 mx-auto max-w-7xl">
         <FadeIn className="text-center mb-16">
           <p className="text-[#9B7DD4] text-sm font-semibold uppercase tracking-widest mb-3">Categorías</p>
           <h2 className="text-4xl md:text-5xl font-black text-white mb-4">Explora por categoría</h2>
@@ -527,11 +539,12 @@ function ProductCard({ product, onAdd, onQuickView }: { product: Product; onAdd:
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="w-24 h-24 rounded-full bg-[#9B7DD4]/10 blur-2xl" />
           </div>
-          <motion.span className="text-7xl select-none relative z-10"
-            whileHover={{ scale: 1.15, rotate: 5 }}
-            transition={{ type: "spring", stiffness: 300 }}>
-            {product.glyph}
-          </motion.span>
+          <UnsplashPhoto
+            section="product"
+            alt={product.name}
+            className="absolute inset-0 h-full w-full object-cover"
+            fallback={<span className="text-7xl select-none relative z-10">{product.glyph}</span>}
+          />
           <span className="absolute top-3 left-3 bg-red-500 text-white text-[0.6rem] font-bold px-2 py-0.5 rounded-sm z-10">-{discount}%</span>
           {product.tag && (
             <span className="absolute top-3 right-3 text-white text-[0.6rem] font-bold px-2 py-0.5 rounded-sm z-10"
@@ -611,10 +624,15 @@ function ProductsSection({ onAdd }: { onAdd: (p: Product) => void }) {
 function HowItWorks() {
   return (
     <section id="como-funciona" className="relative py-24 px-6 overflow-hidden">
+      <UnsplashPhoto
+        section="hero"
+        alt="Tecnología de impresión 3D"
+        className="absolute inset-0 h-full w-full object-cover"
+      />
       <div className="absolute inset-0 opacity-40">
         <RetroGrid gridColor="#9B7DD4" showScanlines={false} glowEffect={true} />
       </div>
-      <div className="absolute inset-0 bg-black/55" />
+      <div className="absolute inset-0 bg-black/70" />
       <div className="relative z-10 mx-auto max-w-7xl">
         <FadeIn className="text-center mb-16">
           <p className="text-[#9B7DD4] text-sm font-semibold uppercase tracking-widest mb-3">Proceso</p>

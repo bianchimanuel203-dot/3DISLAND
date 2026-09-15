@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import type { ShopProduct } from "@/lib/shop/products";
 import { formatPrice } from "@/lib/shop/products";
+import UnsplashPhoto from "@/components/ui/UnsplashPhoto";
 
 type ShopProductCardProps = {
   product: ShopProduct;
@@ -30,15 +31,14 @@ export default function ShopProductCard({ product, onAddToCart }: ShopProductCar
         whileHover={{ y: -4 }}
         transition={{ type: "spring", stiffness: 400, damping: 28 }}
       >
-        {/* Imagen / Glyph */}
+        {/* Imagen */}
         <div className="relative flex items-center justify-center bg-gray-50 h-52 overflow-hidden">
-          <motion.span
-            className="text-7xl select-none"
-            whileHover={{ scale: 1.1 }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
-            {product.glyph}
-          </motion.span>
+          <UnsplashPhoto
+            section="product"
+            alt={product.name}
+            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+            fallback={<span className="text-7xl select-none">{product.glyph}</span>}
+          />
 
           {/* Badges */}
           <span className="absolute top-3 left-3 bg-red-500 text-white text-[0.6rem] font-bold px-2 py-0.5 rounded-full">

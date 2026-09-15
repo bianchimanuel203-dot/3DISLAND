@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import type { ShopProduct } from "@/lib/shop/products";
 import { formatPrice } from "@/lib/shop/products";
+import UnsplashPhoto from "@/components/ui/UnsplashPhoto";
 
 export type CartLine = {
   product: ShopProduct;
@@ -88,9 +89,14 @@ export default function CartDrawer({
                   {lines.map((line) => (
                     <li key={line.product.id}>
                       <div className="flex gap-4 rounded-2xl border border-[#E9E4F5] bg-white p-4 shadow-sm">
-                        <span className="text-3xl" aria-hidden>
-                          {line.product.glyph}
-                        </span>
+                        <div className="h-12 w-12 shrink-0 overflow-hidden rounded-xl flex items-center justify-center">
+                          <UnsplashPhoto
+                            section="product"
+                            alt={line.product.name}
+                            className="h-full w-full object-cover"
+                            fallback={<span className="text-3xl" aria-hidden>{line.product.glyph}</span>}
+                          />
+                        </div>
                         <div className="min-w-0 flex-1">
                           <p className="truncate font-display text-sm font-semibold tracking-wide text-[#24183A]">
                             {line.product.name}

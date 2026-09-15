@@ -7,6 +7,7 @@ import ShopNav from "@/components/shop/ShopNav";
 import { useCartStore } from "@/store/cart.store";
 import { useHydration } from "@/store/useHydration";
 import { SHOP_PRODUCTS, type ShopCategoryId } from "@/lib/shop/products";
+import UnsplashPhoto from "@/components/ui/UnsplashPhoto";
 
 const MOCK_ARTISTS = [
   { id: "3d-island-studio", name: "3D Island Studio", avatar: "🏝️", location: "Las Palmas, Canarias", specialty: "Gaming & TCG", rating: 4.9, reviews: 128, sales: 340, products: 12, joined: "2024", bio: "Estudio especializado en piezas premium para gaming y coleccionismo. Impresión FDM de alta resolución con acabados artesanales.", badges: ["Top Vendedor", "Envío Rápido", "Canarias"], featured: true },
@@ -79,8 +80,13 @@ export default function ArtistsPage() {
             {MOCK_ARTISTS.filter((a) => a.featured).map((artist) => (
               <Link key={artist.id} href={`/artists/${artist.id}`}
                 className="group flex gap-4 rounded-2xl border border-gray-100 bg-white p-5 transition-all hover:border-gray-300 hover:shadow-md">
-                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-gray-50 text-4xl border border-gray-100">
-                  {artist.avatar}
+                <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-gray-50 border border-gray-100">
+                  <UnsplashPhoto
+                    section="artist"
+                    alt={artist.name}
+                    className="h-full w-full object-cover"
+                    fallback={<span className="text-4xl">{artist.avatar}</span>}
+                  />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between gap-2">
@@ -140,8 +146,13 @@ export default function ArtistsPage() {
             <Link key={artist.id} href={`/artists/${artist.id}`}
               className="group flex flex-col rounded-2xl border border-gray-100 bg-white p-5 transition-all hover:border-gray-300 hover:shadow-md">
               <div className="flex items-center gap-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gray-50 text-3xl border border-gray-100">
-                  {artist.avatar}
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-gray-50 border border-gray-100">
+                  <UnsplashPhoto
+                    section="artist"
+                    alt={artist.name}
+                    className="h-full w-full object-cover"
+                    fallback={<span className="text-3xl">{artist.avatar}</span>}
+                  />
                 </div>
                 <div>
                   <h3 className="font-bold text-gray-900 group-hover:text-gray-600 text-sm">{artist.name}</h3>

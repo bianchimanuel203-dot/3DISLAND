@@ -7,6 +7,7 @@ import ShopNav from "@/components/shop/ShopNav";
 import { useCartStore } from "@/store/cart.store";
 import { useHydration } from "@/store/useHydration";
 import { SHOP_PRODUCTS, formatPrice, type ShopCategoryId } from "@/lib/shop/products";
+import UnsplashPhoto from "@/components/ui/UnsplashPhoto";
 
 const MOCK_ARTISTS: Record<string, any> = {
   "3d-island-studio": { id: "3d-island-studio", name: "3D Island Studio", avatar: "🏝️", location: "Las Palmas, Canarias", specialty: "Gaming & TCG", rating: 4.9, reviews: 128, sales: 340, products: 12, joined: "2024", bio: "Estudio especializado en piezas premium para gaming y coleccionismo. Más de 2 años fabricando con impresión FDM de alta resolución y acabados artesanales.", badges: ["Top Vendedor", "Envío Rápido", "Canarias", "Verificado"], socials: { instagram: "@3dislandstudio" } },
@@ -66,14 +67,25 @@ export default function ArtistProfilePage() {
       />
 
       <div>
-        {/* Banner — gris oscuro estilo Etsy */}
-        <div className="h-48 bg-gray-900 sm:h-56" />
+        {/* Banner */}
+        <div className="h-48 overflow-hidden bg-gray-900 sm:h-56">
+          <UnsplashPhoto
+            section="artist"
+            alt={`${artist.name} banner`}
+            className="h-full w-full object-cover"
+          />
+        </div>
 
         <div className="mx-auto max-w-[1400px] px-6 pb-24 md:px-8">
           <div className="relative -mt-16 mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div className="flex items-end gap-4">
-              <div className="flex h-28 w-28 items-center justify-center rounded-2xl border-4 border-white bg-gray-50 text-5xl shadow-lg">
-                {artist.avatar}
+              <div className="flex h-28 w-28 items-center justify-center overflow-hidden rounded-2xl border-4 border-white bg-gray-50 shadow-lg">
+                <UnsplashPhoto
+                  section="artist"
+                  alt={artist.name}
+                  className="h-full w-full object-cover"
+                  fallback={<span className="text-5xl">{artist.avatar}</span>}
+                />
               </div>
               <div className="mb-2">
                 <div className="flex items-center gap-2">
@@ -148,8 +160,13 @@ export default function ArtistProfilePage() {
               {SHOP_PRODUCTS.slice(0, artist.products).map((p) => (
                 <Link key={p.id} href={`/shop/product/${p.id}`}
                   className="group rounded-2xl border border-gray-100 bg-white p-4 transition-all hover:border-gray-300 hover:shadow-md">
-                  <div className="flex aspect-square items-center justify-center rounded-xl bg-gray-50 text-4xl">
-                    {p.glyph}
+                  <div className="flex aspect-square items-center justify-center overflow-hidden rounded-xl bg-gray-50">
+                    <UnsplashPhoto
+                      section="product"
+                      alt={p.name}
+                      className="h-full w-full object-cover"
+                      fallback={<span className="text-4xl">{p.glyph}</span>}
+                    />
                   </div>
                   <p className="mt-2 text-sm font-semibold text-gray-900 line-clamp-1 group-hover:text-gray-600">{p.name}</p>
                   <p className="mt-1 text-sm font-bold text-gray-900">{formatPrice(p.price)}</p>

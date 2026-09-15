@@ -9,6 +9,7 @@ import ShopFooter from "./ShopFooter";
 import { useShopAnimations } from "./useShopAnimations";
 import { useCartStore } from "@/store/cart.store";
 import { useHydration } from "@/store/useHydration";
+import UnsplashPhoto from "@/components/ui/UnsplashPhoto";
 
 type SortOption = "relevance" | "price-asc" | "price-desc" | "newest";
 
@@ -254,10 +255,13 @@ export default function ShopLayout() {
                       onClick={() => router.push(`/shop/product/${product.id}`)}
                       className="group flex flex-col bg-white overflow-hidden hover:shadow-md transition rounded-xl border border-gray-100 text-left"
                     >
-                      <div className="relative flex items-center justify-center bg-gray-50 h-28 rounded-t-xl">
-                        <span className="text-4xl select-none group-hover:scale-110 transition duration-200">
-                          {product.glyph}
-                        </span>
+                      <div className="relative flex items-center justify-center bg-gray-50 h-28 overflow-hidden rounded-t-xl">
+                        <UnsplashPhoto
+                          section="product"
+                          alt={product.name}
+                          className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-110"
+                          fallback={<span className="text-4xl select-none">{product.glyph}</span>}
+                        />
                         <span className="absolute top-1.5 left-1.5 bg-red-500 text-white text-[0.6rem] font-bold px-1.5 py-0.5 rounded-full">
                           -{discount}%
                         </span>

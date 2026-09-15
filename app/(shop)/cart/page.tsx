@@ -9,6 +9,7 @@ import { formatPrice, SHOP_PRODUCTS, type ShopCategoryId } from "@/lib/shop/prod
 import ShopNav from "@/components/shop/ShopNav";
 import ShopFooter from "@/components/shop/ShopFooter";
 import { useState, useMemo } from "react";
+import UnsplashPhoto from "@/components/ui/UnsplashPhoto";
 
 export default function CartPage() {
   const router = useRouter();
@@ -92,8 +93,13 @@ export default function CartPage() {
                 {safeLines.map((line) => (
                   <div key={line.product.id}
                     className="flex gap-4 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm hover:shadow-md transition-shadow">
-                    <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-xl bg-gray-50 text-4xl border border-gray-100">
-                      {line.product.glyph}
+                    <div className="flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-gray-50 border border-gray-100">
+                      <UnsplashPhoto
+                        section="product"
+                        alt={line.product.name}
+                        className="h-full w-full object-cover"
+                        fallback={<span className="text-4xl">{line.product.glyph}</span>}
+                      />
                     </div>
                     <div className="flex flex-1 flex-col justify-between">
                       <div className="flex items-start justify-between gap-2">
