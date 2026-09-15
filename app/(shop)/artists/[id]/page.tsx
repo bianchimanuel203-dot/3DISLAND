@@ -58,6 +58,7 @@ export default function ArtistProfilePage() {
       <ShopNav
         search={search}
         onSearchChange={(v) => { setSearch(v); router.push(`/shop?q=${v}`); }}
+        cartCount={safeCartCount}
         onCartOpen={() => router.push("/cart")}
         category={navCategory}
         onCategoryChange={(cat) => { setNavCategory(cat); router.push("/shop"); }}
