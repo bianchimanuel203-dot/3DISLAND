@@ -1,17 +1,17 @@
 import { createClient } from '@supabase/supabase-js';
 
-if (!process.env.SUPABASE_URL) {
-  throw new Error('Missing SUPABASE_URL environment variable');
-}
-
-if (!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
-  throw new Error('Missing NEXT_PUBLIC_SUPABASE_ANON_KEY environment variable');
-}
-
 export function createUserSupabaseClient(accessToken: string) {
+  if (!process.env.SUPABASE_URL) {
+    throw new Error('Missing SUPABASE_URL environment variable');
+  }
+
+  if (!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    throw new Error('Missing NEXT_PUBLIC_SUPABASE_ANON_KEY environment variable');
+  }
+
   return createClient(
-    process.env.SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    process.env.SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     {
       global: {
         headers: {
