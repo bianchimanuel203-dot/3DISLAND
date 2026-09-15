@@ -1,0 +1,5 @@
+{
+  "nav": { "search": "Suche nach allem...", "enter": "Anmelden", "register": "Registrieren" },
+  "cart": { "title": "Dein Warenkorb", "empty": "Dein Warenkorb ist leer", "emptyDesc": "Stöbere im Katalog", "subtotal": "Zwischensumme", "shipping": "Versand", "free": "KOSTENLOS", "total": "Gesamt", "checkout": "Bestellung abschließen", "remove": "Entfernen", "discount": "Rabattcode anwenden", "gift": "Als Geschenk markieren", "payment": "Zahlungsmethode", "backToShop": "Weiter einkaufen", "items": "Artikel", "clear": "Warenkorb leeren" },
+  "favorites": { "title": "Meine Favoriten", "empty": "Noch keine Favoriten", "emptyDesc": "Tippe auf das Herz", "addToCart": "In den Warenkorb", "remove": "Aus Favoriten entfernen", "backToShop": "Zurück zum Shop", "freeShipping": "Kostenloser Versand" }
+}

@@ -1,0 +1,5 @@
+{
+  "nav": { "search": "Search for anything...", "enter": "Sign in", "register": "Register" },
+  "cart": { "title": "Your cart", "empty": "Your cart is empty", "emptyDesc": "Browse the catalog", "subtotal": "Subtotal", "shipping": "Shipping", "free": "FREE", "total": "Total", "checkout": "Complete order", "remove": "Remove", "discount": "Apply discount code", "gift": "Mark order as a gift", "payment": "Payment method", "backToShop": "Continue shopping", "items": "items", "clear": "Clear cart" },
+  "favorites": { "title": "My favorites", "empty": "No favorites yet", "emptyDesc": "Tap the heart to save products", "addToCart": "Add to cart", "remove": "Remove from favorites", "backToShop": "Back to shop", "freeShipping": "Free shipping" }
+}

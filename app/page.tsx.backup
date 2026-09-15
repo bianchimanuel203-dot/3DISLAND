@@ -1,0 +1,55 @@
+"use client";
+
+import dynamic from "next/dynamic";
+import { useEffect } from "react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { orbitron } from "@/lib/fonts";
+
+const ExperienceRoot = dynamic(
+  () => import("@/components/experience/ExperienceRoot"),
+  { ssr: false }
+);
+
+const PrinterHeroScene = dynamic(
+  () => import("@/components/hero/PrinterHeroScene"),
+  { ssr: false }
+);
+
+const GrainOverlay = dynamic(
+  () => import("@/components/ui/GrainOverlay"),
+  { ssr: false }
+);
+
+const VignetteOverlay = dynamic(
+  () => import("@/components/ui/VignetteOverlay"),
+  { ssr: false }
+);
+
+const ParticleField = dynamic(
+  () => import("@/components/ui/ParticleField"),
+  { ssr: false }
+);
+
+export default function HomePage() {
+  useEffect(() => {
+    const id = requestAnimationFrame(() => ScrollTrigger.refresh());
+    return () => cancelAnimationFrame(id);
+  }, []);
+
+  return (
+    <ExperienceRoot active={true}>
+      <div className={`${orbitron.variable} font-display bg-[#05050A]`}>
+        <div
+          className="pointer-events-none fixed inset-0 z-0 bg-[#05050A]"
+          aria-hidden
+        />
+        <PrinterHeroScene />
+        <div className="experience-overlays pointer-events-none">
+          <GrainOverlay />
+          <VignetteOverlay />
+          <ParticleField />
+        </div>
+      </div>
+    </ExperienceRoot>
+  );
+}

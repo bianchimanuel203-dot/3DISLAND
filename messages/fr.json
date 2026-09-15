@@ -1,0 +1,5 @@
+{
+  "nav": { "search": "Recherchez n'importe quoi...", "enter": "Connexion", "register": "S'inscrire" },
+  "cart": { "title": "Votre panier", "empty": "Votre panier est vide", "emptyDesc": "Parcourez le catalogue", "subtotal": "Sous-total", "shipping": "Livraison", "free": "GRATUIT", "total": "Total", "checkout": "Finaliser la commande", "remove": "Supprimer", "discount": "Appliquer un code", "gift": "Marquer comme cadeau", "payment": "Mode de paiement", "backToShop": "Continuer les achats", "items": "articles", "clear": "Vider le panier" },
+  "favorites": { "title": "Mes favoris", "empty": "Pas encore de favoris", "emptyDesc": "Appuyez sur le cœur", "addToCart": "Ajouter au panier", "remove": "Retirer des favoris", "backToShop": "Retour à la boutique", "freeShipping": "Livraison gratuite" }
+}
