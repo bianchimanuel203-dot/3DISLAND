@@ -73,21 +73,13 @@ const T: Record<string, Record<string, string>> = {
   customRequest: { es: "Solicitar creación", en: "Request creation", de: "Erstellung anfragen", fr: "Demander création" },
 };
 
-export type ShopNavProps = {
+type ShopNavProps = {
   onCartOpen: () => void;
-  category?: ShopCategoryId;
-  onCategoryChange?: (cat: ShopCategoryId) => void;
-  categoryCounts?: Record<ShopCategoryId, number>;
+  category: ShopCategoryId;
+  onCategoryChange: (cat: ShopCategoryId) => void;
+  categoryCounts: Record<ShopCategoryId, number>;
   search?: string;
   onSearchChange?: (v: string) => void;
-};
-
-const DEFAULT_CATEGORY_COUNTS: Record<ShopCategoryId, number> = {
-  all: 0,
-  gaming: 0,
-  tcg: 0,
-  custom: 0,
-  accesorios: 0,
 };
 
 function SearchSuggestions({ query, onSelect }: { query: string; onSelect: (id: string) => void }) {
@@ -122,9 +114,9 @@ function SearchSuggestions({ query, onSelect }: { query: string; onSelect: (id: 
 
 export default function ShopNav({
   onCartOpen,
-  category = "all",
-  onCategoryChange = () => {},
-  categoryCounts = DEFAULT_CATEGORY_COUNTS,
+  category,
+  onCategoryChange,
+  categoryCounts,
   search: externalSearch,
   onSearchChange: externalOnChange,
 }: ShopNavProps) {
@@ -376,7 +368,7 @@ export default function ShopNav({
               >
                 {catLabel(cat)}
                 <span className="text-[0.6rem] text-gray-400 font-bold">
-                  ({categoryCounts[cat.id] ?? 0})
+                  ({categoryCounts[cat.id]})
                 </span>
               </button>
             ))}
