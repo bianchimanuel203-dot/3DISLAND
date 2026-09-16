@@ -83,6 +83,7 @@ export default function ArtistsPage() {
                 <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-gray-50 border border-gray-100">
                   <UnsplashPhoto
                     section="artist"
+                    query={artist.name}
                     alt={artist.name}
                     className="h-full w-full object-cover"
                     fallback={<span className="text-4xl">{artist.avatar}</span>}
@@ -149,6 +150,7 @@ export default function ArtistsPage() {
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-gray-50 border border-gray-100">
                   <UnsplashPhoto
                     section="artist"
+                    query={artist.name}
                     alt={artist.name}
                     className="h-full w-full object-cover"
                     fallback={<span className="text-3xl">{artist.avatar}</span>}

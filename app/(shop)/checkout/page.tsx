@@ -6,7 +6,6 @@ import Link from "next/link";
 import { useCartStore } from "@/store/cart.store";
 import { useHydration } from "@/store/useHydration";
 import { formatPrice } from "@/lib/shop/products";
-import UnsplashPhoto from "@/components/ui/UnsplashPhoto";
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -82,11 +81,11 @@ export default function CheckoutPage() {
               <div key={line.product.id}
                 className="flex gap-4 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
                 <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-gray-50 border border-gray-100">
-                  <UnsplashPhoto
-                    section="product"
+                  <img
+                    src={line.product.image}
                     alt={line.product.name}
+                    loading="lazy"
                     className="h-full w-full object-cover"
-                    fallback={<span className="text-3xl">{line.product.glyph}</span>}
                   />
                 </div>
                 <div className="flex flex-1 items-center justify-between">

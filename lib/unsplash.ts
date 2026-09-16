@@ -11,13 +11,19 @@ export function isUnsplashSection(value: string): value is UnsplashSection {
   return value in SECTION_QUERIES;
 }
 
-const cache = new Map<UnsplashSection, Promise<string | null>>();
+// Cacheada por query COMPLETA (sección + discriminador), no solo por sección,
+// para que distintas entidades (p.ej. artistas distintos) no compartan la misma foto.
+const cache = new Map<string, Promise<string | null>>();
 
-async function fetchUnsplashImage(section: UnsplashSection): Promise<string | null> {
+function buildQuery(section: UnsplashSection, discriminator?: string): string {
+  const base = SECTION_QUERIES[section];
+  return discriminator ? `${base} ${discriminator}` : base;
+}
+
+async function fetchUnsplashImage(query: string): Promise<string | null> {
   const accessKey = process.env.UNSPLASH_ACCESS_KEY;
   if (!accessKey) return null;
 
-  const query = SECTION_QUERIES[section];
   const url = `https://api.unsplash.com/search/photos?query=${encodeURIComponent(query)}&per_page=1&orientation=landscape`;
 
   try {
@@ -34,13 +40,14 @@ async function fetchUnsplashImage(section: UnsplashSection): Promise<string | nu
   }
 }
 
-export function getUnsplashImage(section: UnsplashSection): Promise<string | null> {
-  if (!cache.has(section)) {
-    const promise = fetchUnsplashImage(section).then((url) => {
-      if (!url) cache.delete(section);
+export function getUnsplashImage(section: UnsplashSection, discriminator?: string): Promise<string | null> {
+  const query = buildQuery(section, discriminator);
+  if (!cache.has(query)) {
+    const promise = fetchUnsplashImage(query).then((url) => {
+      if (!url) cache.delete(query);
       return url;
     });
-    cache.set(section, promise);
+    cache.set(query, promise);
   }
-  return cache.get(section)!;
+  return cache.get(query)!;
 }

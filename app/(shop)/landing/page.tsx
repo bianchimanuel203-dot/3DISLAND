@@ -140,8 +140,6 @@ function FadeIn({ children, delay = 0, className = "" }: { children: React.React
 }
 
 function QuickViewModal({ product, onClose, onAdd }: { product: Product; onClose: () => void; onAdd: () => void }) {
-  const originalPrice = +(product.price * 1.25).toFixed(2);
-  const discount = Math.round((1 - product.price / originalPrice) * 100);
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
 
@@ -174,13 +172,11 @@ function QuickViewModal({ product, onClose, onAdd }: { product: Product; onClose
           className="absolute top-4 right-4 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition">✕</button>
         <div className="flex flex-col md:flex-row">
           <div className="relative flex items-center justify-center overflow-hidden bg-gradient-to-b from-[#1a1a2e] to-[#0d0d1a] h-64 md:h-auto md:w-64 shrink-0">
-            <UnsplashPhoto
-              section="product"
+            <img
+              src={product.image}
               alt={product.name}
               className="h-full w-full object-cover"
-              fallback={<span className="text-8xl select-none">{product.glyph}</span>}
             />
-            <span className="absolute top-3 left-3 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">-{discount}%</span>
             {product.tag && <span className="absolute top-3 right-3 text-white text-xs font-bold px-2 py-1 rounded"
               style={{ background: "linear-gradient(135deg, #06b6d4, #9B7DD4)" }}>{product.tag}</span>}
           </div>
@@ -188,16 +184,10 @@ function QuickViewModal({ product, onClose, onAdd }: { product: Product; onClose
             <div>
               <p className="text-[#9B7DD4] text-xs font-bold uppercase tracking-widest mb-1">{product.category}</p>
               <h2 className="text-xl font-black text-white leading-tight">{product.name}</h2>
-              <div className="flex items-center gap-2 mt-2">
-                <Stars n={5} />
-                <span className="text-xs text-gray-300">4.8 (127 reseñas)</span>
-              </div>
             </div>
             <p className="text-sm text-gray-300 leading-relaxed">{product.description}</p>
             <div className="flex items-baseline gap-3">
               <span className="text-3xl font-black text-white">{formatPrice(product.price)}</span>
-              <span className="text-sm text-gray-400 line-through">{formatPrice(originalPrice)}</span>
-              <span className="text-sm text-red-400 font-bold">-{discount}%</span>
             </div>
             <div className="flex items-center gap-2 text-xs text-gray-300">
               <span className="h-2 w-2 rounded-full bg-green-400 inline-block" />
@@ -494,8 +484,6 @@ function ZoomParallaxSection() {
 function ProductCard({ product, onAdd, onQuickView }: { product: Product; onAdd: () => void; onQuickView: () => void }) {
   const [added, setAdded] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
-  const originalPrice = +(product.price * 1.25).toFixed(2);
-  const discount = Math.round((1 - product.price / originalPrice) * 100);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
@@ -539,13 +527,11 @@ function ProductCard({ product, onAdd, onQuickView }: { product: Product; onAdd:
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="w-24 h-24 rounded-full bg-[#9B7DD4]/10 blur-2xl" />
           </div>
-          <UnsplashPhoto
-            section="product"
+          <img
+            src={product.image}
             alt={product.name}
             className="absolute inset-0 h-full w-full object-cover"
-            fallback={<span className="text-7xl select-none relative z-10">{product.glyph}</span>}
           />
-          <span className="absolute top-3 left-3 bg-red-500 text-white text-[0.6rem] font-bold px-2 py-0.5 rounded-sm z-10">-{discount}%</span>
           {product.tag && (
             <span className="absolute top-3 right-3 text-white text-[0.6rem] font-bold px-2 py-0.5 rounded-sm z-10"
               style={{ background: "linear-gradient(135deg, #06b6d4, #9B7DD4)" }}>
@@ -577,8 +563,6 @@ function ProductCard({ product, onAdd, onQuickView }: { product: Product; onAdd:
           <h3 className="text-sm font-bold text-white line-clamp-2 mb-2">{product.name}</h3>
           <div className="flex items-baseline gap-2">
             <span className="text-lg font-black text-white">{formatPrice(product.price)}</span>
-            <span className="text-xs text-gray-400 line-through">{formatPrice(originalPrice)}</span>
-            <span className="text-xs text-red-400 font-bold">-{discount}%</span>
           </div>
           <p className="text-xs text-gray-300 mt-1 flex items-center gap-1">
             <span className="text-green-400">●</span> Envío gratis · Canarias

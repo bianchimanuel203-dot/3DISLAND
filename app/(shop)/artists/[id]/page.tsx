@@ -71,6 +71,7 @@ export default function ArtistProfilePage() {
         <div className="h-48 overflow-hidden bg-gray-900 sm:h-56">
           <UnsplashPhoto
             section="artist"
+            query={`${artist.name} banner`}
             alt={`${artist.name} banner`}
             className="h-full w-full object-cover"
           />
@@ -82,6 +83,7 @@ export default function ArtistProfilePage() {
               <div className="flex h-28 w-28 items-center justify-center overflow-hidden rounded-2xl border-4 border-white bg-gray-50 shadow-lg">
                 <UnsplashPhoto
                   section="artist"
+                  query={artist.name}
                   alt={artist.name}
                   className="h-full w-full object-cover"
                   fallback={<span className="text-5xl">{artist.avatar}</span>}
@@ -161,11 +163,11 @@ export default function ArtistProfilePage() {
                 <Link key={p.id} href={`/shop/product/${p.id}`}
                   className="group rounded-2xl border border-gray-100 bg-white p-4 transition-all hover:border-gray-300 hover:shadow-md">
                   <div className="flex aspect-square items-center justify-center overflow-hidden rounded-xl bg-gray-50">
-                    <UnsplashPhoto
-                      section="product"
+                    <img
+                      src={p.image}
                       alt={p.name}
+                      loading="lazy"
                       className="h-full w-full object-cover"
-                      fallback={<span className="text-4xl">{p.glyph}</span>}
                     />
                   </div>
                   <p className="mt-2 text-sm font-semibold text-gray-900 line-clamp-1 group-hover:text-gray-600">{p.name}</p>

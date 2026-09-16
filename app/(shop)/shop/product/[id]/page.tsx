@@ -7,7 +7,6 @@ import { useFavoritesStore } from "@/store/favorites.store";
 import ShopNav from "@/components/shop/ShopNav";
 import Link from "next/link";
 import { useState } from "react";
-import UnsplashPhoto from "@/components/ui/UnsplashPhoto";
 
 const categoryCounts: Record<ShopCategoryId, number> = {
   all: SHOP_PRODUCTS.length,
@@ -17,28 +16,7 @@ const categoryCounts: Record<ShopCategoryId, number> = {
   accesorios: SHOP_PRODUCTS.filter((p) => p.category === "accesorios").length,
 };
 
-const MOCK_REVIEWS = [
-  { id: 1, author: "Carlos M.", rating: 5, date: "12 mayo 2026", text: "Calidad increíble, llegó en 3 días desde Fuerteventura. El acabado es exactamente como en las fotos.", avatar: "C" },
-  { id: 2, author: "Laura G.", rating: 5, date: "28 abril 2026", text: "Perfecto para mis auriculares Sony. Muy sólido, no se mueve nada. Lo recomiendo 100%.", avatar: "L" },
-  { id: 3, author: "Marcos T.", rating: 4, date: "15 abril 2026", text: "Buen producto, el diseño es bonito. Le doy 4 estrellas porque tardó un día más de lo esperado.", avatar: "M" },
-  { id: 4, author: "Sofía R.", rating: 5, date: "2 abril 2026", text: "Impresionante la precisión del acabado. Se nota que está fabricado con cuidado.", avatar: "S" },
-];
-
-const RATING_DIST = { 5: 68, 4: 20, 3: 8, 2: 3, 1: 1 };
-const AVG_RATING = 4.8;
-
-function Stars({ rating, size = "md" }: { rating: number; size?: "sm" | "md" | "lg" }) {
-  const sz = size === "lg" ? "text-2xl" : size === "sm" ? "text-xs" : "text-sm";
-  return (
-    <span className={sz}>
-      {[1, 2, 3, 4, 5].map((i) => (
-        <span key={i} className={i <= Math.round(rating) ? "text-amber-400" : "text-gray-200"}>★</span>
-      ))}
-    </span>
-  );
-}
-
-type Tab = "descripcion" | "specs" | "resenas";
+type Tab = "descripcion" | "specs";
 
 export default function ProductPage() {
   const { id } = useParams<{ id: string }>();
@@ -65,8 +43,6 @@ export default function ProductPage() {
     (p) => p.category === product.category && p.id !== product.id
   ).slice(0, 4);
 
-  const originalPrice = +(product.price * 1.2).toFixed(2);
-  const discount = 17;
   const fav = isFavorite(product.id);
 
   function handleAddToCart() {
@@ -112,15 +88,10 @@ export default function ProductPage() {
                 ))}
               </div>
               <div className="relative flex flex-1 items-center justify-center overflow-hidden rounded-2xl bg-white shadow-sm min-h-[420px] border border-gray-100">
-                <UnsplashPhoto
-                  section="product"
+                <img
+                  src={product.image}
                   alt={product.name}
                   className="h-full w-full object-cover"
-                  fallback={
-                    <span className="text-[12rem] select-none" role="img" aria-label={product.name}>
-                      {product.glyph}
-                    </span>
-                  }
                 />
                 {product.tag && (
                   <span className="absolute top-4 left-4 rounded-full bg-gray-900 px-3 py-1 text-xs font-bold text-white uppercase tracking-wide">
@@ -134,16 +105,13 @@ export default function ProductPage() {
                 >
                   <span className="text-xl">{fav ? "❤️" : "🤍"}</span>
                 </button>
-                <span className="absolute bottom-4 right-4 rounded-full bg-red-500 px-2.5 py-0.5 text-xs font-bold text-white">
-                  -{discount}%
-                </span>
               </div>
             </div>
 
             {/* Tabs */}
             <div className="rounded-2xl bg-white shadow-sm border border-gray-100 overflow-hidden">
               <div className="flex border-b border-gray-100">
-                {(["descripcion", "specs", "resenas"] as Tab[]).map((tab) => (
+                {(["descripcion", "specs"] as Tab[]).map((tab) => (
                   <button key={tab} onClick={() => setActiveTab(tab)}
                     className={`flex-1 py-4 text-sm font-semibold transition ${
                       activeTab === tab
@@ -153,7 +121,6 @@ export default function ProductPage() {
                   >
                     {tab === "descripcion" && "📋 Descripción"}
                     {tab === "specs" && "⚙️ Especificaciones"}
-                    {tab === "resenas" && `⭐ Reseñas (${MOCK_REVIEWS.length})`}
                   </button>
                 ))}
               </div>
@@ -190,49 +157,6 @@ export default function ProductPage() {
                     </table>
                   </div>
                 )}
-
-                {activeTab === "resenas" && (
-                  <div className="space-y-6">
-                    <div className="flex gap-8 items-center pb-6 border-b border-gray-100">
-                      <div className="text-center shrink-0">
-                        <p className="text-5xl font-bold text-gray-900">{AVG_RATING}</p>
-                        <Stars rating={AVG_RATING} size="lg" />
-                        <p className="text-xs text-gray-400 mt-1">{MOCK_REVIEWS.length} reseñas</p>
-                      </div>
-                      <div className="flex-1 space-y-1.5">
-                        {([5, 4, 3, 2, 1] as const).map((star) => (
-                          <div key={star} className="flex items-center gap-2 text-xs">
-                            <span className="w-4 text-right text-gray-500">{star}★</span>
-                            <div className="flex-1 h-2 rounded-full bg-gray-100 overflow-hidden">
-                              <div className="h-full bg-amber-400 rounded-full" style={{ width: `${RATING_DIST[star]}%` }} />
-                            </div>
-                            <span className="w-6 text-gray-400">{RATING_DIST[star]}%</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="space-y-5">
-                      {MOCK_REVIEWS.map((r) => (
-                        <div key={r.id} className="border-b border-gray-50 pb-5 last:border-0">
-                          <div className="flex items-center gap-3 mb-2">
-                            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-900 text-white text-xs font-bold shrink-0">
-                              {r.avatar}
-                            </div>
-                            <div>
-                              <p className="text-sm font-semibold text-gray-800">{r.author}</p>
-                              <div className="flex items-center gap-2">
-                                <Stars rating={r.rating} size="sm" />
-                                <span className="text-xs text-gray-400">{r.date}</span>
-                              </div>
-                            </div>
-                            <span className="ml-auto text-xs text-green-600 bg-green-50 px-2 py-0.5 rounded-full">✓ Compra verificada</span>
-                          </div>
-                          <p className="text-sm text-gray-600 leading-relaxed">{r.text}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
               </div>
             </div>
 
@@ -245,21 +169,17 @@ export default function ProductPage() {
                     <Link key={p.id} href={`/shop/product/${p.id}`}
                       className="group flex flex-col gap-2 rounded-2xl border border-gray-100 bg-white p-4 transition hover:border-gray-300 hover:shadow-md">
                       <div className="flex h-24 items-center justify-center overflow-hidden rounded-xl bg-gray-50">
-                        <UnsplashPhoto
-                          section="product"
+                        <img
+                          src={p.image}
                           alt={p.name}
+                          loading="lazy"
                           className="h-full w-full object-cover"
-                          fallback={<span className="text-5xl">{p.glyph}</span>}
                         />
                       </div>
                       <p className="text-xs font-semibold text-gray-800 group-hover:text-gray-600 leading-tight line-clamp-2">
                         {p.name}
                       </p>
                       <p className="text-sm font-bold text-gray-900">{formatPrice(p.price)}</p>
-                      <div className="flex items-center gap-1">
-                        <Stars rating={4.8} size="sm" />
-                        <span className="text-xs text-gray-400">(4.8)</span>
-                      </div>
                     </Link>
                   ))}
                 </div>
@@ -276,19 +196,11 @@ export default function ProductPage() {
               <h1 className="text-2xl font-bold text-gray-900 leading-snug mb-2">
                 {product.name}
               </h1>
-              <div className="flex items-center gap-2">
-                <Stars rating={AVG_RATING} />
-                <span className="text-sm font-semibold text-amber-500">{AVG_RATING}</span>
-                <span className="text-sm text-gray-400">({MOCK_REVIEWS.length} reseñas)</span>
-                <span className="text-xs text-green-600 font-medium ml-1">✓ 127 vendidos</span>
-              </div>
             </div>
 
             <div className="rounded-xl bg-white p-4 shadow-sm border border-gray-100">
               <div className="flex items-baseline gap-3">
                 <span className="text-3xl font-bold text-gray-900">{formatPrice(product.price)}</span>
-                <span className="text-base text-gray-400 line-through">{formatPrice(originalPrice)}</span>
-                <span className="rounded-full bg-red-100 px-2 py-0.5 text-xs font-bold text-red-600">-{discount}%</span>
               </div>
               <p className="mt-1 text-xs text-gray-400">IVA incluido · Envío gratis a Canarias</p>
             </div>

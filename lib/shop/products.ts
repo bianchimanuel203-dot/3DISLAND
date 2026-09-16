@@ -12,6 +12,7 @@ export type ShopProduct = {
   description: string;
   price: number;
   glyph: string;
+  image: string;
   tag?: string;
   featured?: boolean;
 };
@@ -36,6 +37,7 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
     description: "Estación de mando PS5 con acabado violeta y cable management integrado.",
     price: 34.9,
     glyph: "🎮",
+    image: "/products/producto-1.png",
     tag: "Nuevo",
     featured: true,
   },
@@ -46,6 +48,7 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
     description: "Soporte para auriculares inspirado en sombras — resina violeta de alta densidad.",
     price: 28.5,
     glyph: "😈",
+    image: "/products/producto-2.png",
     featured: true,
   },
   {
@@ -55,6 +58,7 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
     description: "Base magnética para dos mandos con LED ambiental suave.",
     price: 42.0,
     glyph: "⚡",
+    image: "/products/producto-3.png",
   },
   {
     id: "prd-magnetic-vault",
@@ -63,6 +67,7 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
     description: "Caja magnética para decks Pokémon y MTG — sellado ritual, no plástico barato.",
     price: 24.9,
     glyph: "📦",
+    image: "/products/producto-4.png",
     tag: "Top ventas",
     featured: true,
   },
@@ -73,6 +78,7 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
     description: "Monolito vertical para cartas gradadas con acrílico violeta tipo museo.",
     price: 38.0,
     glyph: "💎",
+    image: "/products/producto-5.png",
   },
   {
     id: "prd-slab-altar",
@@ -81,6 +87,7 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
     description: "Expositor triple para slabs PSA/CGC con base antideslizante.",
     price: 45.5,
     glyph: "🏛️",
+    image: "/products/producto-6.png",
   },
   {
     id: "prd-island-sigil",
@@ -89,6 +96,7 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
     description: "Placa personalizada 3D Island — nombre, logo o runas a tu medida.",
     price: 19.9,
     glyph: "🏝️",
+    image: "/products/producto-7.png",
     tag: "Personalizable",
   },
   {
@@ -98,6 +106,7 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
     description: "Escudo isleño impreso en capas con gradiente violeta y textura grabada.",
     price: 32.0,
     glyph: "🌋",
+    image: "/products/producto-8.svg",
     featured: true,
   },
   {
@@ -107,6 +116,7 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
     description: "Organizador modular para cables, llaves y tokens de partida.",
     price: 22.5,
     glyph: "🧩",
+    image: "/products/producto-1.png",
   },
   {
     id: "prd-coaster-set",
@@ -115,6 +125,7 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
     description: "Set de 4 posavasos con borde neón y textura antideslizante.",
     price: 16.9,
     glyph: "☕",
+    image: "/products/producto-2.png",
   },
   {
     id: "prd-keycap-shrine",
@@ -123,6 +134,7 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
     description: "Expositor para keycaps artesanales con iluminación lateral opcional.",
     price: 26.0,
     glyph: "⌨️",
+    image: "/products/producto-3.png",
   },
   {
     id: "prd-tournament-tray",
@@ -131,6 +143,7 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
     description: "Bandeja de torneo con compartimentos para dados, tokens y sideboard.",
     price: 29.9,
     glyph: "🎲",
+    image: "/products/producto-4.png",
   },
 ];
 

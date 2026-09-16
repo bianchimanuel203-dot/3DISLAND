@@ -8,7 +8,6 @@ import ShopNav from "@/components/shop/ShopNav";
 import ShopFooter from "@/components/shop/ShopFooter";
 import { useState, useMemo } from "react";
 import { useHydration } from "@/store/useHydration";
-import UnsplashPhoto from "@/components/ui/UnsplashPhoto";
 
 export default function FavoritesPage() {
   const { items, removeFavorite } = useFavoritesStore();
@@ -73,21 +72,16 @@ export default function FavoritesPage() {
         ) : (
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
             {fullProducts.map((product) => {
-              const originalPrice = +(product.price * 1.25).toFixed(2);
-              const discount = Math.round((1 - product.price / originalPrice) * 100);
               return (
                 <div key={product.id}
                   className="group flex flex-col bg-white rounded-2xl overflow-hidden hover:shadow-md transition border border-gray-100 hover:border-gray-200">
                   <div className="relative flex items-center justify-center bg-gray-50 h-40 overflow-hidden">
-                    <UnsplashPhoto
-                      section="product"
+                    <img
+                      src={product.image}
                       alt={product.name}
+                      loading="lazy"
                       className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
-                      fallback={<span className="text-6xl select-none">{product.glyph}</span>}
                     />
-                    <span className="absolute top-2 left-2 bg-red-500 text-white text-[0.6rem] font-bold px-1.5 py-0.5 rounded-full">
-                      -{discount}%
-                    </span>
                     <button
                       type="button"
                       onClick={() => removeFavorite(product.id)}
@@ -106,8 +100,6 @@ export default function FavoritesPage() {
                     </Link>
                     <div className="flex items-baseline gap-1.5 mt-1">
                       <span className="text-sm font-bold text-gray-900">{formatPrice(product.price)}</span>
-                      <span className="text-[0.65rem] text-gray-400 line-through">{formatPrice(originalPrice)}</span>
-                      <span className="text-[0.65rem] text-red-500 font-bold">-{discount}%</span>
                     </div>
                     <span className="text-[0.65rem] text-green-600 font-medium">Envío gratis</span>
                   </div>

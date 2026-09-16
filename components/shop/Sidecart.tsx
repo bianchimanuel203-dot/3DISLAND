@@ -8,7 +8,6 @@ import { useHydration } from "@/store/useHydration";
 import { formatPrice } from "@/lib/shop/products";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import UnsplashPhoto from "@/components/ui/UnsplashPhoto";
 
 export default function Sidecart() {
   const { isOpen, close } = useSidecartStore();
@@ -97,11 +96,11 @@ export default function Sidecart() {
                 <div key={line.product.id} className="flex gap-3 items-start pb-4 border-b border-gray-50 last:border-0">
                   {/* Imagen */}
                   <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-gray-50 border border-gray-100">
-                    <UnsplashPhoto
-                      section="product"
+                    <img
+                      src={line.product.image}
                       alt={line.product.name}
+                      loading="lazy"
                       className="h-full w-full object-cover"
-                      fallback={<span className="text-3xl">{line.product.glyph}</span>}
                     />
                   </div>
 
