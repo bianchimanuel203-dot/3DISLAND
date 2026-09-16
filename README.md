@@ -58,6 +58,8 @@ npm run dev
 DATABASE_URL
 NEXTAUTH_SECRET
 NEXTAUTH_URL
+GOOGLE_CLIENT_ID
+GOOGLE_CLIENT_SECRET
 SUPABASE_URL
 SUPABASE_ANON_KEY
 STRIPE_SECRET_KEY
@@ -65,3 +67,19 @@ UNSPLASH_ACCESS_KEY
 NEXT_PUBLIC_WEB3FORMS_KEY
 
 `NEXT_PUBLIC_WEB3FORMS_KEY` es la access key de [Web3Forms](https://web3forms.com) usada por el formulario de `/custom-request`. Es pública a propósito (Web3Forms está diseñado para llamarse desde el cliente). **Debe estar añadida en Vercel → Settings → Environment Variables antes de cada deploy**, además de en `.env.local` para desarrollo local.
+
+### Login con Google (NextAuth)
+
+El login con Google usa `GOOGLE_CLIENT_ID` y `GOOGLE_CLIENT_SECRET` (ver `auth.ts`). Para que funcione en producción:
+
+1. **Google Cloud Console** → APIs y servicios → Credenciales → tu OAuth Client ID (tipo "Aplicación web").
+   - **Authorized redirect URI** debe ser exactamente:
+     `https://3-disland.vercel.app/api/auth/callback/google`
+   - Para desarrollo local, añade también:
+     `http://localhost:3000/api/auth/callback/google`
+2. **Vercel** → Project Settings → Environment Variables → añade en **Production** (y en Preview/Development si aplica):
+   - `GOOGLE_CLIENT_ID`
+   - `GOOGLE_CLIENT_SECRET`
+   - `NEXTAUTH_URL=https://3-disland.vercel.app` (ya presente)
+   - `NEXTAUTH_SECRET` (ya presente)
+3. Tras añadir o cambiar variables en Vercel, hay que **volver a desplegar** (los env vars no se aplican a un deployment ya construido).
