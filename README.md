@@ -1,5 +1,9 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Variables de entorno
+
+- `NEXT_PUBLIC_WEB3FORMS_KEY` — access key de [Web3Forms](https://web3forms.com) usada por el formulario de `/custom-request`. Es pública a propósito (Web3Forms está diseñado para llamarse desde el cliente). **Debe estar añadida en Vercel → Settings → Environment Variables antes de cada deploy**, además de en `.env.local` para desarrollo local.
+
 ## Getting Started
 
 First, run the development server:
