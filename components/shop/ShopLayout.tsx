@@ -3,6 +3,7 @@
 import { useMemo, useRef, useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
+import UnsplashPhoto from "@/components/ui/UnsplashPhoto";
 import { SHOP_PRODUCTS, type ShopCategoryId } from "@/lib/shop/products";
 import ProductGrid from "./ProductGrid";
 import ShopNav from "./ShopNav";
@@ -21,6 +22,7 @@ const SLIDES = [
   {
     id: 1,
     bg: "bg-gray-900",
+    bgSection: "fuerteventura" as const,
     textColor: "text-white",
     subtitleColor: "text-gray-300",
     title: "Fabricado en Canarias",
@@ -67,7 +69,13 @@ function HeroBanner({ onNavigate }: { onNavigate: (href: string) => void }) {
 
   return (
     <div className={`relative overflow-hidden ${slide.bg} transition-all duration-700`} style={{ height: "200px" }}>
-      <div className="mx-auto max-w-[1400px] px-8 h-full flex items-center justify-between">
+      {"bgSection" in slide && slide.bgSection && (
+        <div className="absolute inset-0">
+          <UnsplashPhoto section={slide.bgSection} alt="" className="object-cover" />
+          <div className="absolute inset-0 bg-black/55" />
+        </div>
+      )}
+      <div className="relative mx-auto max-w-[1400px] px-8 h-full flex items-center justify-between">
         <div className="flex flex-col gap-2 max-w-lg">
           <p className="text-gray-400 text-xs font-medium uppercase tracking-widest">3D Island</p>
           <h2 className="text-2xl md:text-3xl font-black text-white leading-tight">
