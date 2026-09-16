@@ -158,7 +158,7 @@ export default function ShopNav({
     const handler = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       if (!target.closest("#lang-dropdown")) setLangOpen(false);
-      if (!target.closest("#mega-menu")) setMegaOpen(false);
+      if (!target.closest("#mega-menu") && !target.closest("#mega-menu-panel")) setMegaOpen(false);
       if (!target.closest("#user-menu")) setUserOpen(false);
     };
     document.addEventListener("mousedown", handler);
@@ -400,7 +400,7 @@ export default function ShopNav({
       {megaOpen && (
         <>
           <div className="fixed inset-0 z-40 bg-black/30" onClick={() => setMegaOpen(false)} />
-          <div className="fixed left-0 top-0 z-50 h-full w-full max-w-sm overflow-y-auto bg-white shadow-2xl">
+          <div id="mega-menu-panel" className="fixed left-0 top-0 z-50 h-full w-full max-w-sm overflow-y-auto bg-white shadow-2xl">
             <div className="flex items-center justify-between border-b border-gray-100 px-6 py-4">
               <span className="text-lg font-bold text-gray-900">Menú</span>
               <button
