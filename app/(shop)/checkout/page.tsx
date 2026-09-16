@@ -33,7 +33,9 @@ export default function CheckoutPage() {
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ lines: safeLines }),
+        body: JSON.stringify({
+          lines: safeLines.map((l) => ({ productId: l.product.id, quantity: l.quantity })),
+        }),
       });
       const data = await res.json();
       if (!res.ok) { setError(data.error ?? "Error al procesar el pago"); setLoading(false); return; }
@@ -165,13 +167,6 @@ export default function CheckoutPage() {
                   <path fillRule="evenodd" d="M12.516 2.17a.75.75 0 00-1.032 0 11.209 11.209 0 01-7.877 3.08.75.75 0 00-.722.515A12.74 12.74 0 002.25 9.75c0 5.942 4.064 10.933 9.563 12.348a.749.749 0 00.374 0c5.499-1.415 9.563-6.406 9.563-12.348 0-1.39-.223-2.73-.635-3.985a.75.75 0 00-.722-.516l-.143.001c-2.996 0-5.717-1.17-7.734-3.08z" clipRule="evenodd" />
                 </svg>
                 Pago seguro con Stripe
-              </div>
-
-              {/* Test card */}
-              <div className="mt-4 rounded-xl bg-amber-50 border border-amber-100 p-3">
-                <p className="text-xs font-semibold text-amber-700">🧪 Modo prueba — usa esta tarjeta:</p>
-                <p className="mt-1 font-mono text-xs text-amber-600">4242 4242 4242 4242</p>
-                <p className="font-mono text-xs text-amber-500">Fecha: 12/34 · CVC: 123</p>
               </div>
             </div>
           </div>

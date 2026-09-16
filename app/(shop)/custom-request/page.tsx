@@ -22,6 +22,8 @@ export default function CustomRequestPage() {
   const [search, setSearch] = useState("");
   const [navCategory, setNavCategory] = useState<ShopCategoryId>("all");
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const rawCartCount = useCartStore((s) => s.cartCount());
   const hydrated = useHydration();
@@ -43,7 +45,50 @@ export default function CustomRequestPage() {
     setForm((prev) => ({ ...prev, [name]: type === "checkbox" ? (e.target as HTMLInputElement).checked : value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => { e.preventDefault(); setSubmitted(true); };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitError("");
+
+    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
+    if (!accessKey) {
+      setSubmitError(
+        "El formulario aún no está configurado (falta NEXT_PUBLIC_WEB3FORMS_KEY). Contacta al equipo técnico."
+      );
+      return;
+    }
+
+    setSending(true);
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: `3D Island — Nueva solicitud custom (${form.type || "sin tipo"})`,
+          from_name: "3D Island — Solicitud personalizada",
+          name: form.name,
+          email: form.email,
+          company: form.company,
+          request_type: form.type,
+          description: form.description,
+          quantity: form.quantity,
+          budget: form.budget,
+          deadline: form.deadline,
+          commercial_use: form.commercial,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSubmitted(true);
+      } else {
+        setSubmitError(data.message ?? "No se pudo enviar la solicitud. Inténtalo de nuevo.");
+      }
+    } catch {
+      setSubmitError("Error de conexión. Inténtalo de nuevo.");
+    } finally {
+      setSending(false);
+    }
+  };
 
   const navProps = {
     search, onSearchChange: (v: string) => { setSearch(v); router.push(`/shop?q=${v}`); },
@@ -173,10 +218,14 @@ export default function CustomRequestPage() {
             </div>
           </div>
 
+          {submitError && (
+            <p className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600 border border-red-100">{submitError}</p>
+          )}
+
           {/* Submit — negro */}
-          <button type="submit"
-            className="w-full rounded-full bg-gray-900 hover:bg-gray-700 py-4 text-sm font-bold text-white transition-colors shadow-sm">
-            Enviar solicitud →
+          <button type="submit" disabled={sending}
+            className="w-full rounded-full bg-gray-900 hover:bg-gray-700 py-4 text-sm font-bold text-white transition-colors shadow-sm disabled:cursor-not-allowed disabled:opacity-60">
+            {sending ? "Enviando..." : "Enviar solicitud →"}
           </button>
 
           <p className="text-center text-xs text-gray-400">Un artista te responderá en menos de 24 horas. Sin compromiso.</p>

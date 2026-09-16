@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
+import { SHOP_PRODUCTS } from "@/lib/shop/products";
 
 let stripe: Stripe | null = null;
 
@@ -26,20 +27,38 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const lineItems = lines.map((line: {
-      product: { name: string; description: string; price: number };
-      quantity: number;
-    }) => ({
-      price_data: {
-        currency: "eur",
-        product_data: {
-          name: line.product.name,
-          description: line.product.description,
+    const lineItems = [];
+
+    for (const line of lines as { productId?: string; quantity?: number }[]) {
+      const product = SHOP_PRODUCTS.find((p) => p.id === line.productId);
+      const quantity = Number(line.quantity);
+
+      if (!product) {
+        return NextResponse.json(
+          { error: `Producto no encontrado: ${line.productId}` },
+          { status: 400 }
+        );
+      }
+      if (!Number.isInteger(quantity) || quantity < 1) {
+        return NextResponse.json(
+          { error: `Cantidad inválida para ${product.name}` },
+          { status: 400 }
+        );
+      }
+
+      lineItems.push({
+        price_data: {
+          currency: "eur",
+          product_data: {
+            name: product.name,
+            description: product.description,
+          },
+          // El precio SIEMPRE sale del catálogo del servidor, nunca del body del cliente.
+          unit_amount: Math.round(product.price * 100),
         },
-        unit_amount: Math.round(line.product.price * 100),
-      },
-      quantity: line.quantity,
-    }));
+        quantity,
+      });
+    }
 
     const session = await getStripe().checkout.sessions.create({
       payment_method_types: ["card"],

@@ -1,7 +1,17 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { getToken } from 'next-auth/jwt'
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
+  // Requiere NEXTAUTH_SECRET en el entorno (el mismo valor que usa NextAuth en auth.ts).
+  const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET })
+
+  if (!token) {
+    const loginUrl = new URL('/auth/login', request.url)
+    loginUrl.searchParams.set('callbackUrl', request.nextUrl.pathname)
+    return NextResponse.redirect(loginUrl)
+  }
+
   return NextResponse.next()
 }
 
