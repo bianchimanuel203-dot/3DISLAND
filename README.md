@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 3D Island 🖨️
 
-## Getting Started
+Marketplace de piezas de impresión 3D fabricadas en Fuerteventura.
+Plataforma full-stack con catálogo, carrito, autenticación y pagos.
 
-First, run the development server:
+🔗 [Ver demo](https://3-disland.vercel.app)
+
+---
+
+## Stack
+
+- **Frontend:** Next.js 16 · TypeScript · Tailwind CSS · Shadcn/ui
+- **Backend:** Next.js API Routes · Prisma ORM · PostgreSQL (Supabase)
+- **Auth:** NextAuth.js (Email + Google OAuth)
+- **Pagos:** Stripe (modo test)
+- **Storage:** Supabase Storage
+- **3D:** Spline
+- **i18n:** next-intl (ES/EN)
+- **Deploy:** Vercel
+
+---
+
+## Funcionalidades
+
+- Catálogo de productos con fotos reales (Unsplash API)
+- Carrito y checkout completo
+- Autenticación con email y Google
+- Panel de subida de modelos 3D
+- Internacionalización español/inglés
+- Experiencia 3D con Spline en la landing
+
+---
+
+## Arquitectura
+
+app/ # Next.js App Router (rutas y páginas)
+components/ # Componentes reutilizables
+lib/ # Supabase, Prisma, utilidades
+store/ # Estado global (Zustand)
+prisma/ # Schema y migraciones
+i18n/ # Configuración de idiomas
+messages/ # Traducciones ES/EN
+
+
+## Instalación local
 
 ```bash
+git clone https://github.com/bianchimanuel203-dot/3DISLAND.git
+cd 3DISLAND
+npm install
+cp .env.example .env.local
+# Rellena las variables de entorno
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Variables de entorno necesarias
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+DATABASE_URL
+NEXTAUTH_SECRET
+NEXTAUTH_URL
+SUPABASE_URL
+SUPABASE_ANON_KEY
+STRIPE_SECRET_KEY
+UNSPLASH_ACCESS_KEY
