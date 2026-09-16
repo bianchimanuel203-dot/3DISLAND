@@ -6,7 +6,7 @@ import { useCartStore } from "@/store/cart.store";
 import { useFavoritesStore } from "@/store/favorites.store";
 import ShopNav from "@/components/shop/ShopNav";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const categoryCounts: Record<ShopCategoryId, number> = {
   all: SHOP_PRODUCTS.length,
@@ -24,6 +24,8 @@ export default function ProductPage() {
   const [added, setAdded] = useState(false);
   const [activeTab, setActiveTab] = useState<Tab>("descripcion");
   const [qty, setQty] = useState(1);
+  const [activeImage, setActiveImage] = useState(0);
+  useEffect(() => setActiveImage(0), [id]);
   const addToCart = useCartStore((s) => s.addToCart);
   const toggleFavorite = useFavoritesStore((s) => s.toggleFavorite);
   const isFavorite = useFavoritesStore((s) => s.isFavorite);
@@ -43,6 +45,7 @@ export default function ProductPage() {
     (p) => p.category === product.category && p.id !== product.id
   ).slice(0, 4);
 
+  const gallery = product.gallery ?? [product.image];
   const fav = isFavorite(product.id);
 
   function handleAddToCart() {
@@ -79,17 +82,21 @@ export default function ProductPage() {
 
             {/* Galería */}
             <div className="flex gap-3">
-              <div className="hidden sm:flex flex-col gap-2">
-                {[0, 1, 2, 3].map((i) => (
-                  <button key={i}
-                    className="flex h-16 w-16 items-center justify-center rounded-xl border-2 border-transparent bg-white text-2xl shadow-sm transition hover:border-gray-900">
-                    {product.glyph}
-                  </button>
-                ))}
-              </div>
+              {gallery.length > 1 && (
+                <div className="hidden sm:flex flex-col gap-2">
+                  {gallery.map((src, i) => (
+                    <button key={src} type="button" onClick={() => setActiveImage(i)}
+                      className={`flex h-16 w-16 items-center justify-center overflow-hidden rounded-xl border-2 bg-white shadow-sm transition ${
+                        i === activeImage ? "border-gray-900" : "border-transparent hover:border-gray-300"
+                      }`}>
+                      <img src={src} alt={`${product.name} — vista ${i + 1}`} className="h-full w-full object-cover" />
+                    </button>
+                  ))}
+                </div>
+              )}
               <div className="relative flex flex-1 items-center justify-center overflow-hidden rounded-2xl bg-white shadow-sm min-h-[420px] border border-gray-100">
                 <img
-                  src={product.image}
+                  src={gallery[activeImage]}
                   alt={product.name}
                   className="h-full w-full object-cover"
                 />
