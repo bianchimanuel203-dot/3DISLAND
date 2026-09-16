@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { useCartStore } from "@/store/cart.store";
 import { useHydration } from "@/store/useHydration";
 import { formatPrice } from "@/lib/shop/products";
@@ -80,12 +81,13 @@ export default function CheckoutPage() {
             {safeLines.map((line) => (
               <div key={line.product.id}
                 className="flex gap-4 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
-                <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-gray-50 border border-gray-100">
-                  <img
+                <div className="relative flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-gray-50 border border-gray-100">
+                  <Image
                     src={line.product.image}
                     alt={line.product.name}
-                    loading="lazy"
-                    className="h-full w-full object-cover"
+                    fill
+                    sizes="64px"
+                    className="object-cover"
                   />
                 </div>
                 <div className="flex flex-1 items-center justify-between">

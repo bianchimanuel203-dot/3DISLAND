@@ -2,6 +2,7 @@
 
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useMemo } from "react";
 import ShopNav from "@/components/shop/ShopNav";
 import { useCartStore } from "@/store/cart.store";
@@ -162,12 +163,13 @@ export default function ArtistProfilePage() {
               {SHOP_PRODUCTS.slice(0, artist.products).map((p) => (
                 <Link key={p.id} href={`/shop/product/${p.id}`}
                   className="group rounded-2xl border border-gray-100 bg-white p-4 transition-all hover:border-gray-300 hover:shadow-md">
-                  <div className="flex aspect-square items-center justify-center overflow-hidden rounded-xl bg-gray-50">
-                    <img
+                  <div className="relative flex aspect-square items-center justify-center overflow-hidden rounded-xl bg-gray-50">
+                    <Image
                       src={p.image}
                       alt={p.name}
-                      loading="lazy"
-                      className="h-full w-full object-cover"
+                      fill
+                      sizes="(max-width: 640px) 50vw, 25vw"
+                      className="object-cover"
                     />
                   </div>
                   <p className="mt-2 text-sm font-semibold text-gray-900 line-clamp-1 group-hover:text-gray-600">{p.name}</p>

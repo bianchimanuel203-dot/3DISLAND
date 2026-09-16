@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { HOME_COPY } from "@/lib/homeCopy";
 
 type LoadingScreenProps = {
@@ -49,13 +50,13 @@ export default function LoadingScreen({
           className="loading-brand-logo-wrap mx-auto flex justify-center"
           style={{ transform: "rotateX(12deg)" }}
         >
-          <img
+          <Image
             src="/assets/3.svg"
             alt="3D Island"
             width={360}
             height={140}
+            priority
             className="loading-brand-logo h-auto w-[min(300px,78vw)] object-contain"
-            decoding="async"
           />
         </div>
       </div>

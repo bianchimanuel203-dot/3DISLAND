@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import type { UnsplashSection } from "@/lib/unsplash";
 
 // Cacheada por sección + query, no solo por sección, para que cada entidad
@@ -48,5 +49,9 @@ export default function UnsplashPhoto({ section, query, alt, className, fallback
 
   if (!url) return fallback ? <>{fallback}</> : null;
 
-  return <img src={url} alt={alt} className={className} loading="lazy" />;
+  return (
+    <div className="relative h-full w-full">
+      <Image src={url} alt={alt} fill sizes="(max-width: 640px) 50vw, 300px" className={className} />
+    </div>
+  );
 }

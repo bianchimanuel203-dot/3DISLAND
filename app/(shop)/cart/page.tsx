@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useCartStore } from "@/store/cart.store";
 import { useHydration } from "@/store/useHydration";
@@ -92,12 +93,13 @@ export default function CartPage() {
                 {safeLines.map((line) => (
                   <div key={line.product.id}
                     className="flex gap-4 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm hover:shadow-md transition-shadow">
-                    <div className="flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-gray-50 border border-gray-100">
-                      <img
+                    <div className="relative flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-gray-50 border border-gray-100">
+                      <Image
                         src={line.product.image}
                         alt={line.product.name}
-                        loading="lazy"
-                        className="h-full w-full object-cover"
+                        fill
+                        sizes="96px"
+                        className="object-cover"
                       />
                     </div>
                     <div className="flex flex-1 flex-col justify-between">

@@ -3,6 +3,7 @@
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect } from "react";
 
 export default function AccountPage() {
@@ -37,7 +38,7 @@ export default function AccountPage() {
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-4">
             {user.image ? (
-              <img src={user.image} alt={user.name ?? ""} className="h-16 w-16 rounded-full object-cover shadow-sm" width={64} height={64} />
+              <Image src={user.image} alt={user.name ?? ""} className="h-16 w-16 rounded-full object-cover shadow-sm" width={64} height={64} />
             ) : (
               <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gray-900 text-2xl font-bold text-white shadow-sm">
                 {user.name?.charAt(0).toUpperCase() ?? "U"}

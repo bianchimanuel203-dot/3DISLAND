@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useFavoritesStore } from "@/store/favorites.store";
 import { useCartStore } from "@/store/cart.store";
 import { formatPrice, SHOP_PRODUCTS, type ShopCategoryId } from "@/lib/shop/products";
@@ -76,11 +77,12 @@ export default function FavoritesPage() {
                 <div key={product.id}
                   className="group flex flex-col bg-white rounded-2xl overflow-hidden hover:shadow-md transition border border-gray-100 hover:border-gray-200">
                   <div className="relative flex items-center justify-center bg-gray-50 h-40 overflow-hidden">
-                    <img
+                    <Image
                       src={product.image}
                       alt={product.name}
-                      loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
+                      fill
+                      sizes="(max-width: 640px) 50vw, 25vw"
+                      className="object-cover transition-transform duration-200 group-hover:scale-105"
                     />
                     <button
                       type="button"

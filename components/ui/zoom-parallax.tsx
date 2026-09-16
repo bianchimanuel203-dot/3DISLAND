@@ -2,6 +2,7 @@
 
 import { useScroll, useTransform, motion } from 'framer-motion';
 import { useRef } from 'react';
+import NextImage from 'next/image';
 
 interface Image {
   src: string;
@@ -47,10 +48,12 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
               `}
             >
               <div className="relative h-[25vh] w-[25vw] overflow-hidden rounded-xl">
-                <img
+                <NextImage
                   src={src}
                   alt={alt || `Parallax image ${index + 1}`}
-                  className="h-full w-full object-cover"
+                  fill
+                  sizes="25vw"
+                  className="object-cover"
                 />
               </div>
             </motion.div>

@@ -2,6 +2,7 @@
 
 import { useMemo, useRef, useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import Image from "next/image";
 import { SHOP_PRODUCTS, type ShopCategoryId } from "@/lib/shop/products";
 import ProductGrid from "./ProductGrid";
 import ShopNav from "./ShopNav";
@@ -252,11 +253,12 @@ export default function ShopLayout() {
                     className="group flex flex-col bg-white overflow-hidden hover:shadow-md transition rounded-xl border border-gray-100 text-left"
                   >
                     <div className="relative flex items-center justify-center bg-gray-50 h-28 overflow-hidden rounded-t-xl">
-                      <img
+                      <Image
                         src={product.image}
                         alt={product.name}
-                        loading="lazy"
-                        className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-110"
+                        fill
+                        sizes="(max-width: 640px) 50vw, 200px"
+                        className="object-cover transition-transform duration-200 group-hover:scale-110"
                       />
                     </div>
                     <div className="p-2.5">

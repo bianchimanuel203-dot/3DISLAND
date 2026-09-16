@@ -13,6 +13,7 @@ import { GlowCard } from "@/components/ui/spotlight-card";
 import ButtonColorful from "@/components/ui/button-colorful";
 import UnsplashPhoto from "@/components/ui/UnsplashPhoto";
 import Link from "next/link";
+import Image from "next/image";
 
 const FEATURED = SHOP_PRODUCTS.slice(0, 6);
 
@@ -172,10 +173,12 @@ function QuickViewModal({ product, onClose, onAdd }: { product: Product; onClose
           className="absolute top-4 right-4 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition">✕</button>
         <div className="flex flex-col md:flex-row">
           <div className="relative flex items-center justify-center overflow-hidden bg-gradient-to-b from-[#1a1a2e] to-[#0d0d1a] h-64 md:h-auto md:w-64 shrink-0">
-            <img
+            <Image
               src={product.image}
               alt={product.name}
-              className="h-full w-full object-cover"
+              fill
+              sizes="(max-width: 768px) 100vw, 256px"
+              className="object-cover"
             />
             {product.tag && <span className="absolute top-3 right-3 text-white text-xs font-bold px-2 py-1 rounded"
               style={{ background: "linear-gradient(135deg, #06b6d4, #9B7DD4)" }}>{product.tag}</span>}
@@ -527,10 +530,12 @@ function ProductCard({ product, onAdd, onQuickView }: { product: Product; onAdd:
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="w-24 h-24 rounded-full bg-[#9B7DD4]/10 blur-2xl" />
           </div>
-          <img
+          <Image
             src={product.image}
             alt={product.name}
-            className="absolute inset-0 h-full w-full object-cover"
+            fill
+            sizes="(max-width: 640px) 50vw, 300px"
+            className="object-cover"
           />
           {product.tag && (
             <span className="absolute top-3 right-3 text-white text-[0.6rem] font-bold px-2 py-0.5 rounded-sm z-10"

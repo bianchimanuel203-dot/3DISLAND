@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useCartStore } from "@/store/cart.store";
 import { useSidecartStore } from "@/store/sidecart.store";
 import { useHydration } from "@/store/useHydration";
@@ -95,12 +96,13 @@ export default function Sidecart() {
               {safeLines.map((line) => (
                 <div key={line.product.id} className="flex gap-3 items-start pb-4 border-b border-gray-50 last:border-0">
                   {/* Imagen */}
-                  <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-gray-50 border border-gray-100">
-                    <img
+                  <div className="relative flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-gray-50 border border-gray-100">
+                    <Image
                       src={line.product.image}
                       alt={line.product.name}
-                      loading="lazy"
-                      className="h-full w-full object-cover"
+                      fill
+                      sizes="64px"
+                      className="object-cover"
                     />
                   </div>
 
