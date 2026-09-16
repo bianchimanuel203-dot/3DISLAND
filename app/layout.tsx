@@ -38,17 +38,17 @@ export const metadata: Metadata = {
     "accesorios",
     "3D Island",
   ],
-  authors: [{ name: "3D Island", url: "https://3disland.es" }],
+  authors: [{ name: "3D Island", url: "https://3-disland.vercel.app" }],
   creator: "3D Island",
   publisher: "3D Island",
-  metadataBase: new URL("https://3disland.es"),
+  metadataBase: new URL("https://3-disland.vercel.app"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
     locale: "es_ES",
-    url: "https://3disland.es",
+    url: "https://3-disland.vercel.app",
     siteName: "3D Island",
     title: "3D Island — Piezas 3D únicas fabricadas en Canarias",
     description:

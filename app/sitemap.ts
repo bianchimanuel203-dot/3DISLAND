@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { SHOP_PRODUCTS, SHOP_CATEGORIES } from "@/lib/shop/products";
 
-const SITE_URL = "https://3disland.es";
+const SITE_URL = "https://3-disland.vercel.app";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { SHOP_PRODUCTS } from "@/lib/shop/products";
 import ProductPageClient from "./ProductPageClient";
 
-const SITE_URL = "https://3disland.es";
+const SITE_URL = "https://3-disland.vercel.app";
 
 type Props = {
   params: Promise<{ id: string }>;
