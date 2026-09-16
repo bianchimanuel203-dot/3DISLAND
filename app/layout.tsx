@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages } from "next-intl/server";
 import { orbitron } from "@/lib/fonts";
 import "./globals.css";
 
@@ -99,21 +101,26 @@ const htmlClassName = [
   "h-full antialiased",
 ].join(" ");
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
-    <html lang="es" className={htmlClassName}>
+    <html lang={locale} className={htmlClassName}>
       <body
         suppressHydrationWarning
         className="min-h-full flex flex-col [color-scheme:dark]"
         style={{ color: "#E9D5FF" }}
       >
-        <div suppressHydrationWarning className="flex min-h-full flex-1 flex-col">
-          {children}
-        </div>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <div suppressHydrationWarning className="flex min-h-full flex-1 flex-col">
+            {children}
+          </div>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
