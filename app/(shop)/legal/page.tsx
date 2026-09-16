@@ -17,9 +17,10 @@ export default function LegalPage() {
         </p>
         <ul className="list-disc pl-6">
           <li>Denominación: 3D Island</li>
+          <li>Titular: Manuel Bianchi</li>
           <li>CIF/NIF: [pendiente de completar]</li>
-          <li>Domicilio social: Fuerteventura, Islas Canarias, España [dirección completa pendiente]</li>
-          <li>Correo electrónico de contacto: [pendiente de completar]</li>
+          <li>Domicilio social: Fuerteventura, Islas Canarias, España</li>
+          <li>Correo electrónico de contacto: manuelb11@outlook.it</li>
           <li>Registro Mercantil: [pendiente de completar, si aplica]</li>
         </ul>
       </section>

@@ -12,9 +12,9 @@ export default function PrivacyPage() {
       <section>
         <h2 className="text-lg font-bold text-gray-900">1. Responsable del tratamiento</h2>
         <p>
-          3D Island, con domicilio en Fuerteventura, Islas Canarias, España [dirección completa
-          pendiente], es responsable del tratamiento de los datos personales que nos facilites a
-          través de este sitio web. Contacto: [correo electrónico pendiente de completar].
+          3D Island (Manuel Bianchi), con domicilio en Fuerteventura, Islas Canarias, España, es
+          responsable del tratamiento de los datos personales que nos facilites a través de este
+          sitio web. Contacto: manuelb11@outlook.it.
         </p>
       </section>
 
@@ -57,8 +57,8 @@ export default function PrivacyPage() {
         <h2 className="text-lg font-bold text-gray-900">6. Tus derechos</h2>
         <p>
           Puedes ejercer tus derechos de acceso, rectificación, supresión, oposición, limitación y
-          portabilidad escribiendo a [correo electrónico pendiente de completar]. También puedes
-          reclamar ante la Agencia Española de Protección de Datos (AEPD).
+          portabilidad escribiendo a manuelb11@outlook.it. También puedes reclamar ante la Agencia
+          Española de Protección de Datos (AEPD).
         </p>
       </section>
 
