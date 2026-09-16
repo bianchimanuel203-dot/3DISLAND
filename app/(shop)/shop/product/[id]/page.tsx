@@ -59,7 +59,7 @@ export default async function ProductPage({ params }: Props) {
           price: product.price.toFixed(2),
           availability: "https://schema.org/InStock",
           itemCondition: "https://schema.org/NewCondition",
-          seller: { "@type": "Organization", name: "3D Island" },
+          seller: { "@type": "Organization", name: "3D Island — Fuerteventura" },
         },
       }
     : null;
