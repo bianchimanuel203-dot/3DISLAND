@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Inter } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import { orbitron } from "@/lib/fonts";
+import CookieConsentBanner from "@/components/shop/CookieConsentBanner";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -120,6 +121,7 @@ export default async function RootLayout({
           <div suppressHydrationWarning className="flex min-h-full flex-1 flex-col">
             {children}
           </div>
+          <CookieConsentBanner />
         </NextIntlClientProvider>
       </body>
     </html>
