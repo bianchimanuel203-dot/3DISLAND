@@ -56,19 +56,13 @@ export function useShopAnimations(
         if (cards.length) {
           gsap.fromTo(
             cards,
-            { opacity: 0, y: 48, scale: 0.94 },
+            { opacity: 0, y: 16 },
             {
               opacity: 1,
               y: 0,
-              scale: 1,
-              duration: 0.75,
-              stagger: 0.08,
+              duration: 0.4,
+              stagger: 0.03,
               ease: "power2.out",
-              scrollTrigger: {
-                trigger: grid,
-                start: "top 85%",
-                toggleActions: "play none none reverse",
-              },
             }
           );
         }
